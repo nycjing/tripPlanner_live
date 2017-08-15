@@ -119,7 +119,10 @@
       //console.log(event.target);
       //$(this).sibling().val();
       //const option = event.prev().val();
-      console.log($(this).siblings().val() );
+      const $selectItem = $(this).siblings('select');
+      console.log($selectItem);
+      console.log($(this).siblings('select').val() );
+      console.log($selectItem[0]);
       //console.log(event);
         // const theSongsDivAsJQuery = $songs
         // const theClickedButtonRawDOM = this
