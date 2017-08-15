@@ -98,12 +98,15 @@
     var restaurants = {{ restaurants | dump | safe }};
     var activities = {{ activities | dump | safe }};
     var itinerary = {restaurant:'',hotel:'',activity:''};
+    var markers = [];
+
     function selectRightItem(type, id) {
         let location;
         if (type ==='restaurant'){
             itinerary.restaurant = restaurants[id - 1].name;
             console.log(restaurants[id-1]);
             location = restaurants[id - 1].place.location;
+            markers.push({type,location})
             $('#restaurant').text(itinerary.restaurant);
         };
         if (type ==='hotel'){
@@ -117,12 +120,9 @@
             $('#activity').text(itinerary.activity);
         }
 
-        console.log("location : ", location);
+        console.log('type', type, "location : ", location);
         //GoogleMaps
-        import {drawMarker} from '../public/js/map.js';
         drawMarker(type, location);
-
-
 
     }
 
