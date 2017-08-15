@@ -99,16 +99,31 @@
     var activities = {{ activities | dump | safe }};
     var itinerary = {restaurant:'',hotel:'',activity:''};
     function selectRightItem(type, id) {
+        let location;
         if (type ==='restaurant'){
-            itinerary.restaurant = restaurants[id].name;
+            itinerary.restaurant = restaurants[id - 1].name;
+            console.log(restaurants[id-1]);
+            location = restaurants[id - 1].place.location;
             $('#restaurant').text(itinerary.restaurant);
         };
         if (type ==='hotel'){
-            itinerary.hotel =  hotels[id].name;
+            itinerary.hotel =  hotels[id - 1].name;
+            location = hotels[id - 1].place.location;
+            $('#hotel').text(itinerary.hotel);
         };
         if (type ==='activity'){
-            itinerary.activity =  activities[id];
+            itinerary.activity =  activities[id - 1].name;
+            location = activities[id - 1].place.location;
+            $('#activity').text(itinerary.activity);
         }
+
+        console.log("location : ", location);
+        //GoogleMaps
+        import {drawMarker} from '../public/js/map.js';
+        drawMarker(type, location);
+
+
+
     }
 
     console.log(hotels);
@@ -133,11 +148,8 @@
       const $id = $selectItem.val();
       const $type = $selectItem.attr("data-type");
       console.log('id', $id,'type',$type);
-      const $selectName = selectRightItem($type, $id)
-      console.log('name',$selectName)
+      selectRightItem($type, $id);
     });
-
-
 
 
 </script>
