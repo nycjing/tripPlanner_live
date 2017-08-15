@@ -101,14 +101,33 @@
     console.log(hotels);
 
     $.each(hotels, function (i, hotel) {
-        $('#hotel-choices').append($('<option></option>').text(hotel.name));
+        $('#hotel-choices').append($('<option></option>').text(hotel.name).val(hotel.id));
     });
-    $.each(hotels, function (i, hotel) {
-        $('#hotel-choices').append($('<option></option>').text(hotel.name));
+    $.each(restaurants, function (i, restaurant) {
+        $('#restaurant-choices').append($('<option></option>').text(restaurant.name).val(restaurant.id));
     });
-    $.each(hotels, function (i, hotel) {
-        $('#hotel-choices').append($('<option></option>').text(hotel.name));
+    $.each(activities, function (i, activity) {
+        $('#activity-choices').append($('<option></option>').text(activity.name).val(activity.id));
     });
+
+    const $optionPanel = $('#options-panel') //.children('button'); //may have issues here
+
+    console.log($optionPanel);
+    console.log(1);
+
+    $optionPanel.on('click', 'button', function (event) {
+      //console.log(event.target);
+      //$(this).sibling().val();
+      //const option = event.prev().val();
+      console.log($(this).siblings().val() );
+      //console.log(event);
+        // const theSongsDivAsJQuery = $songs
+        // const theClickedButtonRawDOM = this
+        // const theClickedButtonAgain = event.target
+        // console.log('You clicked:', $(this).text())
+    });
+
+
 
 </script>
 {% endblock %}
