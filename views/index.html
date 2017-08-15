@@ -4,118 +4,121 @@
 
 {% block content %}
 <div id="app" class="clearfix">
-  <div class="map-container col-sm-8 col-lg-9">
-    <div>
-      <div id="map-canvas"></div>
-    </div>
-  </div>
-  <div id="control-panel" class="col-sm-4 col-lg-3 clearfix">
-    <div class="col-xs-6 col-sm-12">
-      <div class="panel panel-default">
-        <div class="panel-body" id="options-panel">
-          <div>
-            <h4>Hotels</h4>
-            <select data-type="hotel" id="hotel-choices">
-            <!--{% for hotel in hotels %}-->
-              <!--<option>{{hotel.name}}</option>-->
-            <!--{% endfor %}-->
-            </select>
-            <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
-          </div>
-          <div>
-            <h4>Restaurants</h4>
-            <select data-type="restaurant" id="restaurant-choices">
-            <!--{% for restaurant in restaurants %}-->
-              <!--<option>{{restaurant.name}}</option>-->
-            <!--{% endfor %}-->
-            </select>
-            <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
-          </div>
-          <div>
-            <h4>Activities</h4>
-            <select data-type="activity" id="activity-choices">
-            <!--{% for activity in activities %}-->
-              <!--<option>{{activity.name}}</option>-->
-            <!--{% endfor %}-->
-            </select>
-            <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
-          </div>
+    <div class="map-container col-sm-8 col-lg-9">
+        <div>
+            <div id="map-canvas"></div>
         </div>
-      </div>
     </div>
-    <div class="col-xs-6 col-sm-12">
-      <h3>
+    <div id="control-panel" class="col-sm-4 col-lg-3 clearfix">
+        <div class="col-xs-6 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body" id="options-panel">
+                    <div>
+                        <h4>Hotels</h4>
+                        <select data-type="hotel" id="hotel-choices">
+                            <!--{% for hotel in hotels %}-->
+                            <!--<option>{{hotel.name}}</option>-->
+                            <!--{% endfor %}-->
+                        </select>
+                        <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
+                    </div>
+                    <div>
+                        <h4>Restaurants</h4>
+                        <select data-type="restaurant" id="restaurant-choices">
+                            <!--{% for restaurant in restaurants %}-->
+                            <!--<option>{{restaurant.name}}</option>-->
+                            <!--{% endfor %}-->
+                        </select>
+                        <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
+                    </div>
+                    <div>
+                        <h4>Activities</h4>
+                        <select data-type="activity" id="activity-choices">
+                            <!--{% for activity in activities %}-->
+                            <!--<option>{{activity.name}}</option>-->
+                            <!--{% endfor %}-->
+                        </select>
+                        <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-12">
+            <h3>
         <span id="day-title">
           <span>Day 2</span>
           <button class="btn btn-xs btn-danger remove btn-circle">x</button>
         </span>
-      </h3>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <div class="day-buttons">
-            <button class="btn btn-circle day-btn">1</button>
-            <button class="btn btn-circle day-btn current-day">2</button>
-            <button class="btn btn-circle day-btn">3</button>
-            <button class="btn btn-circle day-btn" id="day-add">+</button>
-          </div>
+            </h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="day-buttons">
+                        <button class="btn btn-circle day-btn">1</button>
+                        <button class="btn btn-circle day-btn current-day">2</button>
+                        <button class="btn btn-circle day-btn">3</button>
+                        <button class="btn btn-circle day-btn" id="day-add">+</button>
+                    </div>
+                </div>
+                <div class="panel-body" id="itinerary">
+                    <div>
+                        <h4>My Hotel</h4>
+                        <ul class="list-group">
+                            <div class="itinerary-item">
+                                <span class="title" id="hotel"></span>
+                                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+                            </div>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>My Restaurants</h4>
+                        <ul class="list-group">
+                            <div class="itinerary-item">
+                                <span class="title" id="restaurant"></span>
+                                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+                            </div>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>My Activities</h4>
+                        <ul class="list-group">
+                            <div class="itinerary-item">
+                                <span class="title" id="activity"></span>
+                                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="panel-body" id="itinerary">
-          <div>
-            <h4>My Hotel</h4>
-            <ul class="list-group">
-              <div class="itinerary-item">
-                <span class="title" id="hotel"></span>
-                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
-              </div>
-            </ul>
-          </div>
-          <div>
-            <h4>My Restaurants</h4>
-            <ul class="list-group">
-              <div class="itinerary-item">
-                <span class="title" id="restaurant"></span>
-                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
-              </div>
-            </ul>
-          </div>
-          <div>
-            <h4>My Activities</h4>
-            <ul class="list-group">
-              <div class="itinerary-item">
-                <span class="title" id="activity"></span>
-                <button class="btn btn-xs btn-danger remove btn-circle">x</button>
-              </div>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <script>
-    var hotels = {{ hotels | dump | safe }};
-    var restaurants = {{ restaurants | dump | safe }};
-    var activities = {{ activities | dump | safe }};
-    var itinerary = {restaurant:'',hotel:'',activity:''};
+    var hotels = {{hotels | dump | safe}};
+    var restaurants = {{restaurants | dump | safe}};
+    var activities ={{activities | dump | safe}};
+    var itinerary = {restaurant: '', hotel: '', activity: ''};
     var markers = [];
+    console.log(markers);
 
     function selectRightItem(type, id) {
         let location;
-        if (type ==='restaurant'){
+        if (type === 'restaurant') {
             itinerary.restaurant = restaurants[id - 1].name;
-            console.log(restaurants[id-1]);
+            console.log(restaurants[id - 1]);
             location = restaurants[id - 1].place.location;
-            markers.push({type,location})
+            markers.push(type, location)
             $('#restaurant').text(itinerary.restaurant);
-        };
-        if (type ==='hotel'){
-            itinerary.hotel =  hotels[id - 1].name;
+        }
+        ;
+        if (type === 'hotel') {
+            itinerary.hotel = hotels[id - 1].name;
             location = hotels[id - 1].place.location;
             $('#hotel').text(itinerary.hotel);
-        };
-        if (type ==='activity'){
-            itinerary.activity =  activities[id - 1].name;
+        }
+        ;
+        if (type === 'activity') {
+            itinerary.activity = activities[id - 1].name;
             location = activities[id - 1].place.location;
             $('#activity').text(itinerary.activity);
         }
@@ -138,17 +141,26 @@
         $('#activity-choices').append($('<option></option>').text(activity.name).val(activity.id));
     });
 
-    const $optionPanel = $('#options-panel') //.children('button'); //may have issues here
+    const $optionPanel = $('#options-panel');
+    const $itineraryPanel = $('#itinerary');
 
     console.log($optionPanel);
     console.log(1);
 
     $optionPanel.on('click', 'button', function (event) {
-      const $selectItem = $(this).siblings('select');
-      const $id = $selectItem.val();
-      const $type = $selectItem.attr("data-type");
-      console.log('id', $id,'type',$type);
-      selectRightItem($type, $id);
+        const $selectItem = $(this).siblings('select');
+        const $id = $selectItem.val();
+        const $type = $selectItem.attr("data-type");
+        console.log('id', $id, 'type', $type);
+        selectRightItem($type, $id);
+    });
+    $itineraryPanel.on('click', 'button', function (event) {
+        const $selectItem = $(this).siblings('span');
+        console.log($selectItem, 'val', $selectItem[0].innerText);
+        //        const $id = $selectItem.val();
+//        const $type = $selectItem.attr("data-type");
+//        console.log('id', $id,'type',$type);
+//        selectRightItem($type, $id);
     });
 
 
