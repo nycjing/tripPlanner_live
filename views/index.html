@@ -25,18 +25,18 @@
           <div>
             <h4>Restaurants</h4>
             <select data-type="restaurant" id="restaurant-choices">
-            {% for restaurant in restaurants %}
-              <option>{{restaurant.name}}</option>
-            {% endfor %}
+            <!--{% for restaurant in restaurants %}-->
+              <!--<option>{{restaurant.name}}</option>-->
+            <!--{% endfor %}-->
             </select>
             <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
           </div>
           <div>
             <h4>Activities</h4>
             <select data-type="activity" id="activity-choices">
-            {% for activity in activities %}
-              <option>{{activity.name}}</option>
-            {% endfor %}
+            <!--{% for activity in activities %}-->
+              <!--<option>{{activity.name}}</option>-->
+            <!--{% endfor %}-->
             </select>
             <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
           </div>
@@ -101,9 +101,14 @@
     console.log(hotels);
 
     $.each(hotels, function (i, hotel) {
-        $('#hotel-choices').append($('<option>', {
-            value: hotel.name
-        }));
+        $('#hotel-choices').append($('<option></option>').text(hotel.name));
     });
+    $.each(hotels, function (i, hotel) {
+        $('#hotel-choices').append($('<option></option>').text(hotel.name));
+    });
+    $.each(hotels, function (i, hotel) {
+        $('#hotel-choices').append($('<option></option>').text(hotel.name));
+    });
+
 </script>
 {% endblock %}
