@@ -16,9 +16,9 @@
           <div>
             <h4>Hotels</h4>
             <select data-type="hotel" id="hotel-choices">
-            {% for hotel in hotels %}
-              <option>{{hotel.name}}</option>
-            {% endfor %}
+            <!--{% for hotel in hotels %}-->
+              <!--<option>{{hotel.name}}</option>-->
+            <!--{% endfor %}-->
             </select>
             <button data-action="add" class="btn btn-primary btn-circle pull-right">+</button>
           </div>
@@ -92,4 +92,18 @@
     </div>
   </div>
 </div>
+
+<script>
+    var hotels = {{ hotels | dump | safe }};
+    var restaurants = {{ restaurants | dump | safe }};
+    var activities = {{ activities | dump | safe }};
+
+    console.log(hotels);
+
+    $.each(hotels, function (i, hotel) {
+        $('#hotel-choices').append($('<option>', {
+            value: hotel.name
+        }));
+    });
+</script>
 {% endblock %}
