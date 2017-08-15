@@ -154,13 +154,11 @@
         console.log('id', $id, 'type', $type);
         selectRightItem($type, $id);
     });
-    $itineraryPanel.on('click', 'button', function (event) {
+    $itineraryPanel.on('click', '.remove', function (event) {
         const $selectItem = $(this).siblings('span');
-        console.log($selectItem, 'val', $selectItem[0].innerText);
-        //        const $id = $selectItem.val();
-//        const $type = $selectItem.attr("data-type");
-//        console.log('id', $id,'type',$type);
-//        selectRightItem($type, $id);
+        console.log($selectItem, 'name', $selectItem[0].innerText, 'type', $selectItem[0].id);
+        const $type = $selectItem[0].id;
+        const $name = $selectItem[0].innerText
     });
 
 
