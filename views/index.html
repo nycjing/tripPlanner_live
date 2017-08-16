@@ -51,7 +51,7 @@
         </span>
             </h3>
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" id="day">
                     <div class="day-buttons">
                         <button class="btn btn-circle day-btn">1</button>
                         <button class="btn btn-circle day-btn current-day">2</button>
@@ -129,6 +129,37 @@
         if (findMarkerInMarkersArray(type, name) === -1) {
             markersArr.push({type, location, name, id}); //check uniqueness on multiple button presses and itinerary day
         }
+    };
+
+    function deleteItem (type, name) {
+        // select day
+        // if inside itineraryArr select the type
+        console.log("DELETING ITEM", itinerary[type]);
+        let curItemName = itinerary[type]; // name
+        itinerary[type] = "";
+        const selector = "#" + type;
+        $(selector).text("");
+
+        let indexToDelete = findMarkerInMarkersArray(type, name);
+        if (indexToDelete !== -1) markersArr.splice(indexToDelete, 1);
+        deleteAllMarkers();
+        drawMarkers();
+    }
+
+    function drawMarkers () {
+        markersArr.forEach(function(mark) {
+            console.log("drawing marker");
+            drawMarker(mark.type, mark.location);
+        });
+    }
+
+    function findMarkerInMarkersArray (type, name) {
+        var result = -1;
+        markersArr.forEach( function(marker, idx) {
+            if (marker.type === type && marker.name === name)   result = idx;
+        });
+
+        return result;
     }
 
     console.log(hotels);
@@ -145,9 +176,7 @@
 
     const $optionPanel = $('#options-panel');
     const $itineraryPanel = $('#itinerary');
-
-    console.log($optionPanel);
-    console.log(1);
+    const $dayPanel = $('#day');
 
     $optionPanel.on('click', 'button', function (event) {
         const $selectItem = $(this).siblings('select');
@@ -160,6 +189,7 @@
         drawMarkers();
         console.log("After click MarkersArr grows: ", markersArr);
     });
+
     $itineraryPanel.on('click', '.remove', function (event) {
         const $selectItem = $(this).siblings('span');
         console.log($selectItem, 'name', $selectItem[0].innerText, 'type', $selectItem[0].id);
@@ -170,36 +200,20 @@
         console.log("Deleting Marker: ", markersArr);
     });
 
+    $dayPanel.on('click', '.day-btn', function (event) {
+        const $selectItem = $(this);
+        const $oldcurrentday = $(this).find("current-day");
+        console.log($oldcurrentday[0] );
+        $oldcurrentday.removeClass("current-day");
+//        const $type = $selectItem[0].id;
+        const $dayNum = $selectItem[0].innerText;
+        $selectItem.addClass("current-day");
+//        deleteItem ($type, $name);
+//
+//        console.log("Deleting Marker: ", markersArr);
+    });
 
-    function deleteItem (type, name) {
-      // select day
-      // if inside itineraryArr select the type
-      console.log("DELETING ITEM", itinerary[type]);
-      let curItemName = itinerary[type]; // name
-      itinerary[type] = "";
-      const selector = "#" + type;
-      $(selector).text("");
 
-      let indexToDelete = findMarkerInMarkersArray(type, name);
-      if (indexToDelete !== -1) markersArr.splice(indexToDelete, 1);
-      deleteAllMarkers();
-      drawMarkers();
-    }
 
-    function drawMarkers () {
-      markersArr.forEach(function(mark) {
-        console.log("drawing marker");
-        drawMarker(mark.type, mark.location);
-      });
-    }
-
-    function findMarkerInMarkersArray (type, name) {
-      markersArr.forEach( function (marker, idx) {
-         if (marker.type === type && marker.name === name) {
-           return idx;
-         }
-      })
-      return -1;
-    }
 </script>
 {% endblock %}
