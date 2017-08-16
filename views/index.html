@@ -97,36 +97,38 @@
     var hotels = {{hotels | dump | safe}};
     var restaurants = {{restaurants | dump | safe}};
     var activities ={{activities | dump | safe}};
-    var itinerary = {restaurant: '', hotel: '', activity: ''};
-    var markers = [];
-    console.log(markers);
+    var itineraryArr = [];
+    var markersArr = [];
+    var itinerary = {restaurant: '', hotel: '', activity: '', day: ''};
 
     function selectRightItem(type, id) {
         let location;
+        let name;
+
         if (type === 'restaurant') {
-            itinerary.restaurant = restaurants[id - 1].name;
-            console.log(restaurants[id - 1]);
+            name = restaurants[id - 1].name;
+            itinerary.restaurant = name;
             location = restaurants[id - 1].place.location;
-            markers.push(type, location)
-            $('#restaurant').text(itinerary.restaurant);
-        }
-        ;
+            $('#restaurant').text(name);
+        };
         if (type === 'hotel') {
-            itinerary.hotel = hotels[id - 1].name;
+            name = hotels[id - 1].name;
+            itinerary.hotel = name;
             location = hotels[id - 1].place.location;
-            $('#hotel').text(itinerary.hotel);
-        }
-        ;
+            $('#hotel').text(name);
+        };
         if (type === 'activity') {
-            itinerary.activity = activities[id - 1].name;
+            name = activities[id - 1].name;
+            itinerary.activity = name;
             location = activities[id - 1].place.location;
-            $('#activity').text(itinerary.activity);
+            $('#activity').text(name);
+        };
+
+        // Add marker as long as marker is not already inside MarkerArr
+        console.log(findMarkerInMarkersArray(type, name));
+        if (findMarkerInMarkersArray(type, name) === -1) {
+            markersArr.push({type, location, name, id}); //check uniqueness on multiple button presses and itinerary day
         }
-
-        console.log('type', type, "location : ", location);
-        //GoogleMaps
-        drawMarker(type, location);
-
     }
 
     console.log(hotels);
@@ -153,14 +155,51 @@
         const $type = $selectItem.attr("data-type");
         console.log('id', $id, 'type', $type);
         selectRightItem($type, $id);
+
+        //272
+        drawMarkers();
+        console.log("After click MarkersArr grows: ", markersArr);
     });
     $itineraryPanel.on('click', '.remove', function (event) {
         const $selectItem = $(this).siblings('span');
         console.log($selectItem, 'name', $selectItem[0].innerText, 'type', $selectItem[0].id);
         const $type = $selectItem[0].id;
-        const $name = $selectItem[0].innerText
+        const $name = $selectItem[0].innerText;
+        deleteItem ($type, $name);
+
+        console.log("Deleting Marker: ", markersArr);
     });
 
 
+    function deleteItem (type, name) {
+      // select day
+      // if inside itineraryArr select the type
+      console.log("DELETING ITEM", itinerary[type]);
+      let curItemName = itinerary[type]; // name
+      itinerary[type] = "";
+      const selector = "#" + type;
+      $(selector).text("");
+
+      let indexToDelete = findMarkerInMarkersArray(type, name);
+      if (indexToDelete !== -1) markersArr.splice(indexToDelete, 1);
+      deleteAllMarkers();
+      drawMarkers();
+    }
+
+    function drawMarkers () {
+      markersArr.forEach(function(mark) {
+        console.log("drawing marker");
+        drawMarker(mark.type, mark.location);
+      });
+    }
+
+    function findMarkerInMarkersArray (type, name) {
+      markersArr.forEach( function (marker, idx) {
+         if (marker.type === type && marker.name === name) {
+           return idx;
+         }
+      })
+      return -1;
+    }
 </script>
 {% endblock %}

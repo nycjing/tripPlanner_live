@@ -1,4 +1,5 @@
 var currentMap;
+var gMapsMarkerArr = [];
 
 $(function initializeMap (){
 
@@ -62,6 +63,12 @@ function drawMarker (type, coords) {
         icon: iconURL,
         position: latLng
     });
+    gMapsMarkerArr.push(marker);
     marker.setMap(currentMap);
 };
 
+function deleteAllMarkers () {
+  gMapsMarkerArr.forEach (function (marker) {
+    marker.setMap(null);
+  });
+}
