@@ -177,6 +177,7 @@
     const $optionPanel = $('#options-panel');
     const $itineraryPanel = $('#itinerary');
     const $dayPanel = $('#day');
+    const $dayTitlePanel = $('#day-title');
 
     $optionPanel.on('click', 'button', function (event) {
         const $selectItem = $(this).siblings('select');
@@ -203,14 +204,20 @@
     $dayPanel.on('click', '.day-btn', function (event) {
         const $selectItem = $(this);
         const $oldcurrentday = $(this).siblings(".current-day");
-        console.log($oldcurrentday[0] );
         $oldcurrentday.removeClass("current-day");
-//        const $type = $selectItem[0].id;
         const $dayNum = $selectItem[0].innerText;
+        if ($dayNum === '+'){
+
+            $newNum= +($selectItem.prev('.btn')[0].innerText) + 1;
+            $selectItem.addClass("current-day");
+            $selectItem.text($newNum)
+            $dayTitlePanel.children('span').text("Day " + $newNum);
+            $selectItem.parent().append($('<button></button>').text('+').addClass("btn").addClass("btn-circle").addClass("day-btn"));
+            $dayNum = $newNum.toString();
+        }
         $selectItem.addClass("current-day");
-//        deleteItem ($type, $name);
-//
-//        console.log("Deleting Marker: ", markersArr);
+        $dayTitlePanel.children('span').text("Day " + $dayNum);
+
     });
 
 
