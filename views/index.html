@@ -213,7 +213,62 @@
 //        console.log("Deleting Marker: ", markersArr);
     });
 
+<<<<<<< HEAD
+||||||| merged common ancestors
+    function deleteItem (type, name) {
+      // select day
+      // if inside itineraryArr select the type
+      console.log("DELETING ITEM", itinerary[type]);
+      let curItemName = itinerary[type]; // name
+      itinerary[type] = "";
+      const selector = "#" + type;
+      $(selector).text("");
+
+      let indexToDelete = findMarkerInMarkersArray(type, name);
+      if (indexToDelete !== -1) markersArr.splice(indexToDelete, 1);
+      deleteAllMarkers();
+      drawMarkers();
+    }
+=======
+    function deleteItem (type, name) {
+      // select day
+      // if inside itineraryArr select the type
+      console.log("DELETING ITEM", itinerary[type]);
+      let curItemName = itinerary[type]; // name
+      itinerary[type] = "";
+      const selector = "#" + type;
+      $(selector).text("");
+
+      let indexToDelete = findMarkerInMarkersArray(type, name);
+      console.log('indexToDelete = ', indexToDelete)
+      if (indexToDelete !== -1) markersArr.splice(indexToDelete, 1);
+      deleteAllMarkers();
+      drawMarkers();
+    }
+>>>>>>> 2d748a5c4f300aaaf28cf58064c68aa8b3d21521
 
 
+<<<<<<< HEAD
+||||||| merged common ancestors
+    function findMarkerInMarkersArray (type, name) {
+      markersArr.forEach( function (marker, idx) {
+         if (marker.type === type && marker.name === name) {
+           return idx;
+         }
+      })
+      return -1;
+    }
+=======
+    function findMarkerInMarkersArray (type, name) {
+      let marker;
+      for (let i = 0; i < markersArr.length; i++) {
+        marker = markersArr[i];
+        if (marker.type === type && marker.name === name) {
+          return i;
+        }
+      }
+      return -1;
+    }
+>>>>>>> 2d748a5c4f300aaaf28cf58064c68aa8b3d21521
 </script>
 {% endblock %}
