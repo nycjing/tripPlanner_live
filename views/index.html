@@ -46,15 +46,15 @@
         <div class="col-xs-6 col-sm-12">
             <h3>
         <span id="day-title">
-          <span>Day 2</span>
+          <span>Day 1</span>
           <button class="btn btn-xs btn-danger remove btn-circle">x</button>
         </span>
             </h3>
             <div class="panel panel-default">
                 <div class="panel-heading" id="day">
                     <div class="day-buttons">
-                        <button class="btn btn-circle day-btn">1</button>
-                        <button class="btn btn-circle day-btn current-day">2</button>
+                        <button class="btn btn-circle day-btn current-day">1</button>
+                        <button class="btn btn-circle day-btn">2</button>
                         <button class="btn btn-circle day-btn">3</button>
                         <button class="btn btn-circle day-btn" id="day-add">+</button>
                     </div>
@@ -99,7 +99,8 @@
     var activities ={{activities | dump | safe}};
     var itineraryArr = [];
     var markersArr = [];
-    var itinerary = {restaurant: '', hotel: '', activity: '', day: ''};
+    var itinerary = {restaurant: '', hotel: '', activity: ''};
+    console.log(hotels);
 
     function selectRightItem(type, id) {
         let location;
@@ -144,7 +145,25 @@
         if (indexToDelete !== -1) markersArr.splice(indexToDelete, 1);
         deleteAllMarkers();
         drawMarkers();
-    }
+    };
+
+    function loadRightItem(type, name) {
+        let location;
+
+        if (type === 'restaurant') {
+//            name = itinerary.restaurant;
+            $('#restaurant').text(name);
+        };
+        if (type === 'hotel') {
+//            name = itinerary.hotel;
+            $('#hotel').text(name);
+        };
+        if (type === 'activity') {
+//            name = itinerary.activity;
+            $('#activity').text(name);
+        };
+
+    };
 
     function drawMarkers () {
         markersArr.forEach(function(mark) {
@@ -162,7 +181,7 @@
         return result;
     }
 
-    console.log(hotels);
+
 
     $.each(hotels, function (i, hotel) {
         $('#hotel-choices').append($('<option></option>').text(hotel.name).val(hotel.id));
@@ -197,13 +216,13 @@
         const $type = $selectItem[0].id;
         const $name = $selectItem[0].innerText;
         deleteItem ($type, $name);
-
-        console.log("Deleting Marker: ", markersArr);
     });
 
     $dayPanel.on('click', '.day-btn', function (event) {
         const $selectItem = $(this);
         const $oldcurrentday = $(this).siblings(".current-day");
+        itineraryArr[+$oldcurrentday[0].innerText-1] = ({itin: itinerary, markers:markersArr}) ;
+        console.log(' day arry ',itineraryArr)
         $oldcurrentday.removeClass("current-day");
         const $dayNum = $selectItem[0].innerText;
         if ($dayNum === '+'){
@@ -217,6 +236,24 @@
         }
         $selectItem.addClass("current-day");
         $dayTitlePanel.children('span').text("Day " + $dayNum);
+        if (itineraryArr[+$dayNum-1]) {
+
+            itinerary = itineraryArr[+$dayNum-1].itin;
+            markersArr = itineraryArr[+$dayNum-1].markers;
+
+        }
+        else {
+            markersArr = [];
+            itinerary = {restaurant: '', hotel: '', activity: ''};
+        }
+        types = Object.keys(itinerary);
+        types.forEach((type)=>{
+            console.log('new day info', type,itinerary[type]);
+            loadRightItem(type, itinerary[type]);
+        });
+
+        deleteAllMarkers();
+        drawMarkers();
 
     });
 

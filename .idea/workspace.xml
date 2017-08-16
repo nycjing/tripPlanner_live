@@ -29,8 +29,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="215" column="39" lean-forward="false" selection-start-line="215" selection-start-column="39" selection-end-line="215" selection-end-column="39" />
+            <state relative-caret-position="354">
+              <caret line="162" column="3" lean-forward="true" selection-start-line="162" selection-start-column="3" selection-end-line="162" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -211,7 +211,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13177000" />
+    <option name="totallyTimeSpent" value="15113000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="731" extended-state="6" />
@@ -571,8 +571,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="215" column="39" lean-forward="false" selection-start-line="215" selection-start-column="39" selection-end-line="215" selection-end-column="39" />
+        <state relative-caret-position="354">
+          <caret line="162" column="3" lean-forward="true" selection-start-line="162" selection-start-column="3" selection-end-line="162" selection-end-column="3" />
           <folding />
         </state>
       </provider>
