@@ -92,171 +92,24 @@
         </div>
     </div>
 </div>
-
 <script>
-    var hotels = {{hotels | dump | safe}};
-    var restaurants = {{restaurants | dump | safe}};
-    var activities ={{activities | dump | safe}};
-    var itineraryArr = [];
-    var markersArr = [];
-    var itinerary = {restaurant: '', hotel: '', activity: ''};
-    console.log(hotels);
+var hotels = {{hotels | dump | safe}};
+var restaurants = {{restaurants | dump | safe}};
+var activities ={{activities | dump | safe}};
+var itineraryArr = [];
+var markersArr = [];
+var itinerary = {restaurant: '', hotel: '', activity: ''};
 
-    function selectRightItem(type, id) {
-        let location;
-        let name;
-
-        if (type === 'restaurant') {
-            name = restaurants[id - 1].name;
-            itinerary.restaurant = name;
-            location = restaurants[id - 1].place.location;
-            $('#restaurant').text(name);
-        };
-        if (type === 'hotel') {
-            name = hotels[id - 1].name;
-            itinerary.hotel = name;
-            location = hotels[id - 1].place.location;
-            $('#hotel').text(name);
-        };
-        if (type === 'activity') {
-            name = activities[id - 1].name;
-            itinerary.activity = name;
-            location = activities[id - 1].place.location;
-            $('#activity').text(name);
-        };
-
-        // Add marker as long as marker is not already inside MarkerArr
-        console.log(findMarkerInMarkersArray(type, name));
-        if (findMarkerInMarkersArray(type, name) === -1) {
-            markersArr.push({type, location, name, id}); //check uniqueness on multiple button presses and itinerary day
-        }
-    };
-
-    function deleteItem (type, name) {
-        // select day
-        // if inside itineraryArr select the type
-        console.log("DELETING ITEM", itinerary[type]);
-        let curItemName = itinerary[type]; // name
-        itinerary[type] = "";
-        const selector = "#" + type;
-        $(selector).text("");
-
-        let indexToDelete = findMarkerInMarkersArray(type, name);
-        if (indexToDelete !== -1) markersArr.splice(indexToDelete, 1);
-        deleteAllMarkers();
-        drawMarkers();
-    };
-
-    function loadRightItem(type, name) {
-        let location;
-
-        if (type === 'restaurant') {
-//            name = itinerary.restaurant;
-            $('#restaurant').text(name);
-        };
-        if (type === 'hotel') {
-//            name = itinerary.hotel;
-            $('#hotel').text(name);
-        };
-        if (type === 'activity') {
-//            name = itinerary.activity;
-            $('#activity').text(name);
-        };
-
-    };
-
-    function drawMarkers () {
-        markersArr.forEach(function(mark) {
-            console.log("drawing marker");
-            drawMarker(mark.type, mark.location);
-        });
-    }
-
-    function findMarkerInMarkersArray (type, name) {
-        var result = -1;
-        markersArr.forEach( function(marker, idx) {
-            if (marker.type === type && marker.name === name)   result = idx;
-        });
-
-        return result;
-    }
-
-
-
-    $.each(hotels, function (i, hotel) {
-        $('#hotel-choices').append($('<option></option>').text(hotel.name).val(hotel.id));
-    });
-    $.each(restaurants, function (i, restaurant) {
-        $('#restaurant-choices').append($('<option></option>').text(restaurant.name).val(restaurant.id));
-    });
-    $.each(activities, function (i, activity) {
-        $('#activity-choices').append($('<option></option>').text(activity.name).val(activity.id));
-    });
-
-    const $optionPanel = $('#options-panel');
-    const $itineraryPanel = $('#itinerary');
-    const $dayPanel = $('#day');
-    const $dayTitlePanel = $('#day-title');
-
-    $optionPanel.on('click', 'button', function (event) {
-        const $selectItem = $(this).siblings('select');
-        const $id = $selectItem.val();
-        const $type = $selectItem.attr("data-type");
-        console.log('id', $id, 'type', $type);
-        selectRightItem($type, $id);
-
-        //272
-        drawMarkers();
-        console.log("After click MarkersArr grows: ", markersArr);
-    });
-
-    $itineraryPanel.on('click', '.remove', function (event) {
-        const $selectItem = $(this).siblings('span');
-        console.log($selectItem, 'name', $selectItem[0].innerText, 'type', $selectItem[0].id);
-        const $type = $selectItem[0].id;
-        const $name = $selectItem[0].innerText;
-        deleteItem ($type, $name);
-    });
-
-    $dayPanel.on('click', '.day-btn', function (event) {
-        const $selectItem = $(this);
-        const $oldcurrentday = $(this).siblings(".current-day");
-        itineraryArr[+$oldcurrentday[0].innerText-1] = ({itin: itinerary, markers:markersArr}) ;
-        console.log(' day arry ',itineraryArr)
-        $oldcurrentday.removeClass("current-day");
-        const $dayNum = $selectItem[0].innerText;
-        if ($dayNum === '+'){
-
-            $newNum= +($selectItem.prev('.btn')[0].innerText) + 1;
-            $selectItem.addClass("current-day");
-            $selectItem.text($newNum)
-            $dayTitlePanel.children('span').text("Day " + $newNum);
-            $selectItem.parent().append($('<button></button>').text('+').addClass("btn").addClass("btn-circle").addClass("day-btn"));
-            $dayNum = $newNum.toString();
-        }
-        $selectItem.addClass("current-day");
-        $dayTitlePanel.children('span').text("Day " + $dayNum);
-        if (itineraryArr[+$dayNum-1]) {
-
-            itinerary = itineraryArr[+$dayNum-1].itin;
-            markersArr = itineraryArr[+$dayNum-1].markers;
-
-        }
-        else {
-            markersArr = [];
-            itinerary = {restaurant: '', hotel: '', activity: ''};
-        }
-        types = Object.keys(itinerary);
-        types.forEach((type)=>{
-            console.log('new day info', type,itinerary[type]);
-            loadRightItem(type, itinerary[type]);
-        });
-
-        deleteAllMarkers();
-        drawMarkers();
-
-    });
-
-
+$.each(hotels, function (i, hotel) {
+    $('#hotel-choices').append($('<option></option>').text(hotel.name).val(hotel.id));
+});
+$.each(restaurants, function (i, restaurant) {
+    $('#restaurant-choices').append($('<option></option>').text(restaurant.name).val(restaurant.id));
+});
+$.each(activities, function (i, activity) {
+    $('#activity-choices').append($('<option></option>').text(activity.name).val(activity.id));
+});
 </script>
+
+<script src="/js/trip.js"></script>
 {% endblock %}
