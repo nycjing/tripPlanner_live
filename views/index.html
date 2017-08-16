@@ -202,7 +202,7 @@
 
     $dayPanel.on('click', '.day-btn', function (event) {
         const $selectItem = $(this);
-        const $oldcurrentday = $(this).find("current-day");
+        const $oldcurrentday = $(this).siblings(".current-day");
         console.log($oldcurrentday[0] );
         $oldcurrentday.removeClass("current-day");
 //        const $type = $selectItem[0].id;
